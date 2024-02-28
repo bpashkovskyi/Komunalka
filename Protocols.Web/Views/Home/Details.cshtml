@@ -1,0 +1,47 @@
+﻿@model Protocols.Web.Models.ProtocolDetailsViewModel
+
+@{
+    ViewData["Title"] = $"Протокол {Model.Number} від {Model.Date} року";
+}
+
+<div>
+    <h4>Протокол №@Html.DisplayFor(model => model.Number) від @Html.DisplayFor(model => model.Date) року</h4>
+    @Html.ActionLink("Завантажити вихідний файл протоколу", "Download", "Home", new { id = Model.Id })
+    <hr />
+    <dl class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items.First().Number)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items.First().Heard)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Items.First().Heard)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Number)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Heard)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Decided)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Повернутися до списку протоколів</a>
+</div>

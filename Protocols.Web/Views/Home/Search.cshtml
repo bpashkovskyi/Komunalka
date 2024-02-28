@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Protocols.Web.Models.ItemSearchViewModel>
+
+@{
+    ViewData["Title"] = "Пошук";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProtocolNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Heard)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Decided)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Details", "Home", new { id = item.ProtocolId })">Протокол №@Html.DisplayFor(modelItem => item.Number) від @Html.DisplayFor(modelItem => item.ProtocolDate)</a>
+                    
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Heard)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Decided)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

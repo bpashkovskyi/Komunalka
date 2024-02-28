@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Accidents map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <link href="./jquery.multiselect.css" media="screen" rel="stylesheet" type="text/css">
+    <meta charset="utf-8" />
+</head>
+
+<body class="no-scroll">
+    <div class="loader-wrap">
+        <div class="loader"></div>
+    </div>
+    <div id="content">
+        <div id="filtersContainer">
+            <div id="total"></div>
+            <div class="buttonsContainer" id="buttonsContainer">
+                <select class="dynamic-select" id="yearsSelect" data-filter="years" multiple="multiple" data-placeholder="Рік"></select>
+                <select class="dynamic-select" id="citiesSelect" data-filter="cities" multiple="multiple" data-placeholder="Місто"></select>
+                <select class="dynamic-select" id="typesSelect" data-filter="types" multiple="multiple" data-placeholder="Вид пригоди"></select>
+                <select class="dynamic-select" id="reasonsSelect" data-filter="reasons" multiple="multiple" data-placeholder="Основна причина ДТП"></select>
+                <select class="dynamic-select" id="surfaceTypesSelect" data-filter="surfaceTypes" multiple="multiple" data-placeholder="Тип покриття"></select>
+                <select class="dynamic-select" id="surfaceConditionsSelect" data-filter="surfaceConditions" multiple="multiple" data-placeholder="Стан Покриття"></select>
+                <select class="dynamic-select" id="lightingsSelect" data-filter="lightings" multiple="multiple" data-placeholder="Освітленість"></select>
+                <select class="dynamic-select" id="roadElementsSelect" data-filter="roadElements" multiple="multiple" data-placeholder="Елементи ділянки"></select>
+                <select class="dynamic-select" id="constructionsSelect" data-filter="constructions" multiple="multiple" data-placeholder="Штучні споруди"></select>
+                <select class="dynamic-select" id="trafficToolsSelect" data-filter="trafficTools" multiple="multiple" data-placeholder="Технічні засоби організації дорожнього руху"></select>
+                <select class="dynamic-select" id="weatherConditionsSelect" data-filter="weatherConditions" multiple="multiple" data-placeholder="Погодні умови"></select>
+                <label>ДТП за участю пішохода?</label>
+                <select class="static-select" id="IsPedestrianInvolved" data-filter="isPedestrianInvolved">
+                    <option value="all">Не враховувати</option>
+                    <option value="yes">Так</option>
+                    <option value="no">Ні</option>
+                </select>
+                <label>ДТП за участю велосипедиста?</label>
+                <select class="static-select" id="IsCyclistInvolved" data-filter="isCyclistInvolved">
+                    <option value="all">Не враховувати</option>
+                    <option value="yes">Так</option>
+                    <option value="no">Ні</option>
+                </select>
+                <label>Потерпілі</label>
+                <select class="static-select" id="casualties" data-filter="casualties">
+                    <option value="all">Не враховувати</option>
+                    <option value="minor">Тільки легко травмовані</option>
+                    <option value="major">Важко травмовані без загиблих</option>
+                    <option value="dead">Є загиблі</option>
+                </select>
+                <label>Місце концентрації ДТП?</label>
+                <select class="static-select" id="IsPlaceOfAccidentConcentration" data-filter="isPlaceOfAccidentConcentration">
+                    <option value="all">Не враховувати</option>
+                    <option value="yes">Так</option>
+                    <option value="no">Ні</option>
+                </select>
+                <label>Координати перевірені?</label>
+                <select class="static-select" id="IsCoordinatesChecked" data-filter="isCoordinatesChecked">
+                    <option value="all">Не враховувати</option>
+                    <option value="yes">Так</option>
+                    <option value="no">Ні</option>
+                </select>
+                <div class="buttons-container">
+                    <button class="button" id="resetRequest">Скинути фільтри</button>
+                </div>
+            </div>
+        </div>
+        <div id="map"></div>
+    </div>
+
+
+
+</body>
+<!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7PIVcFN5iX7CdxlyrU_NAisSI2RY9Lio&callback=initMap&v=weekly&libraries=visualization"
+        async></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous" defer></script>
+<script defer src="./jquery.multiselect.js" type="text/javascript"></script>
+<script type="module" src="./index.js"></script>
+
+</html>
