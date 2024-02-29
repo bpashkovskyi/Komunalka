@@ -11,7 +11,8 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         builder.Services.AddDbContext<KomunalkaContext>(options => options.UseSqlServer(
-            builder.Configuration.GetConnectionString("KomunalkaDb")));
+            builder.Configuration.GetConnectionString("KomunalkaDb"),
+            sqlServerDbContextOptionsBuilder => sqlServerDbContextOptionsBuilder.MigrationsHistoryTable("__MigrationsHistory", "komunalka")));
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();

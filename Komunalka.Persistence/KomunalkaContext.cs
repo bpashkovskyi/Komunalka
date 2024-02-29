@@ -22,6 +22,8 @@ public class KomunalkaContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasDefaultSchema("komunalka");
+
         modelBuilder.ApplyConfiguration(new ProtocolConfiguration());
         modelBuilder.ApplyConfiguration(new AccidentConfiguration());
     }

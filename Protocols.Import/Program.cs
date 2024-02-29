@@ -10,7 +10,7 @@ internal class Program
 
     static async Task Main(string[] args)
     {
-        var connectionString = "Server=tcp:telegrambots.database.windows.net,1433;Initial Catalog=komunalka-db;Persist Security Info=False;User ID=bpashkovskyi;Password=Q!W@E#r4t5y6;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        var connectionString = "Server=tcp:bpashkovskyi.database.windows.net,1433;Initial Catalog=bpashkovskyi-db;Persist Security Info=False;User ID=bpashkovskyi;Password=Q!W@E#r4t5y6;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         var dbContextOptionsBuilder = new DbContextOptionsBuilder<KomunalkaContext>();
         dbContextOptionsBuilder.UseSqlServer(connectionString);
         var protocolContext = new KomunalkaContext(dbContextOptionsBuilder.Options);
