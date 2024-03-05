@@ -1,5 +1,8 @@
+using HealthChecks.UI.Client;
+
 using Komunalka.Persistence;
 
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Protocols.Web;
@@ -26,9 +29,15 @@ public class Program
 
         app.UseAuthorization();
 
-        app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
+        app.UseEndpoints(endpoints => endpoints.MapControllers());
+
+        app.UseHealthChecks(
+            "/healthchecks",
+            new HealthCheckOptions
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+            });
 
         app.Run();
     }

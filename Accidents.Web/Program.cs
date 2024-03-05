@@ -1,5 +1,8 @@
+using HealthChecks.UI.Client;
+
 using Komunalka.Persistence;
 
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Accidents.Web;
@@ -44,6 +47,14 @@ public class Program
         app.UseCors("CORS");
 
         app.UseEndpoints(endpoints => endpoints.MapControllers());
+
+        app.UseHealthChecks(
+            "/healthchecks",
+            new HealthCheckOptions
+            {
+                Predicate = _ => true,
+                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse,
+            });
 
         app.Run();
     }
