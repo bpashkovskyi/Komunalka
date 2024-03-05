@@ -46,7 +46,7 @@ public class Program
         app.UseStaticFiles();
         app.UseCors("CORS");
 
-        app.UseEndpoints(endpoints => endpoints.MapControllers());
+        app.MapControllers();
 
         app.UseHealthChecks(
             "/healthchecks",

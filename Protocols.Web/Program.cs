@@ -29,7 +29,7 @@ public class Program
 
         app.UseAuthorization();
 
-        app.UseEndpoints(endpoints => endpoints.MapControllers());
+        app.MapControllers();
 
         app.UseHealthChecks(
             "/healthchecks",
