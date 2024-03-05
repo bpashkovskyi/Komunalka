@@ -24,11 +24,8 @@ public class Program
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
-
         app.UseRouting();
-
         app.UseAuthorization();
-
         app.MapControllers();
 
         app.UseHealthChecks(

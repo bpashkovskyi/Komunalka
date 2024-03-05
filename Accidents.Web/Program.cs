@@ -39,13 +39,11 @@ public class Program
 
         app.UseSwagger();
         app.UseSwaggerUI();
-
         app.UseHttpsRedirection();
         app.UseRouting();
         app.UseDefaultFiles();
         app.UseStaticFiles();
         app.UseCors("CORS");
-
         app.MapControllers();
 
         app.UseHealthChecks(
