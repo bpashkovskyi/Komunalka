@@ -19,6 +19,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+        builder.Services.AddHealthChecks().AddDbContextCheck<KomunalkaContext>();
 
         var app = builder.Build();
 

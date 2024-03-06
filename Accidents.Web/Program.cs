@@ -18,6 +18,7 @@ public class Program
         sqlServerDbContextOptionsBuilder => sqlServerDbContextOptionsBuilder.MigrationsHistoryTable("__MigrationsHistory", "komunalka")));
 
         builder.Services.AddControllers();
+        builder.Services.AddHealthChecks().AddDbContextCheck<KomunalkaContext>();
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddCors(options =>
