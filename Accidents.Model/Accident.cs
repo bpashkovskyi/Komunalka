@@ -115,7 +115,6 @@ public class Accident
         }
     }
 
-
     public bool PedestrianInvolved => Type.ToLower().Contains("пішох");
 
     public bool CyclistInvolved => Type.ToLower().Contains("велос");

@@ -90,6 +90,7 @@ public class HomeController : Controller
     {
         var items = await this._komunalkaContext.Items.Include(item => item.Protocol)
             .Where(item => item.Heard.Contains(searchString) || item.Decided.Contains(searchString))
+            .OrderByDescending(item => item.Protocol.Date)
         .ToListAsync();
 
         var itemSearchViewModels = items.Select(item => new ItemSearchViewModel
