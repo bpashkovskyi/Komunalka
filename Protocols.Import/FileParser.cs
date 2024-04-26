@@ -40,17 +40,18 @@ public class FileParser
         using var pdf = PdfDocument.Open(filePath);
         var text = string.Empty;
 
-        foreach (var page in pdf.GetPages())
+        var pages = pdf.GetPages().ToList();
+        foreach (var page in pages)
         {
             text += page.Text;
         }
 
-        var firstPage = pdf.GetPages().FirstOrDefault();
+        var firstPage = pages.FirstOrDefault();
         text += ContentOrderTextExtractor.GetText(firstPage);
 
         text = RemoveFooters(text);
 
-        var itemRegex = new Regex("СЛУХАЛ?И?\\:?\\s*(.*?)\\s*\\d*\\.?ВИРІШИЛ?И?\\:?\\s*(.*?)\\s*\\.?\\s*\\d*\\.*\\s*?(?=СЛУХАЛ|Голов|Заступ)");
+        var itemRegex = new Regex("(\\d+)\\.*\\s*СЛУХАЛ?И?\\:?\\s*(.*?)\\s*\\d*\\.?ВИРІШИЛ?И?\\:?\\s*(.*?)\\s*\\.?\\s*\\d*\\.*\\s*?[^\\d](?=\\d+\\.*\\s*СЛУХАЛ|Голов|Заступ)");
 
 
         var itemMatches = itemRegex.Matches(text);
@@ -61,9 +62,10 @@ public class FileParser
         {
             var item = new Item
             {
-                Number = i + 1,
-                Heard = itemMatches[i].Groups[1].Value,
-                Decided = itemMatches[i].Groups[2].Value
+                Number = int.Parse(itemMatches[i].Groups[1].Value),
+                OrderNumber = (i + 1) * 10,
+                Heard = itemMatches[i].Groups[2].Value,
+                Decided = itemMatches[i].Groups[3].Value
             };
 
             items.Add(item);
