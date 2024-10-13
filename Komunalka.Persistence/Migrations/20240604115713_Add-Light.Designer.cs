@@ -4,6 +4,7 @@ using Komunalka.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Komunalka.Persistence.Migrations
 {
     [DbContext(typeof(KomunalkaContext))]
-    partial class KomunalkaContextModelSnapshot : ModelSnapshot
+    [Migration("20240604115713_Add-Light")]
+    partial class AddLight
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,9 +228,6 @@ namespace Komunalka.Persistence.Migrations
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("City")
-                                .HasColumnType("nvarchar(max)");
-
-                            b1.Property<string>("Region")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Street")

@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Accidents.Model\Accidents.Model.csproj" />
+		<ProjectReference Include="..\Light.Model\Light.Model.csproj" />
 		<ProjectReference Include="..\Protocols.Model\Protocols.Model.csproj" />
 	</ItemGroup>
 

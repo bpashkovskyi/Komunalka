@@ -2,6 +2,8 @@
 
 using Komunalka.Persistence.Configurations;
 
+using Light.Model;
+
 using Microsoft.EntityFrameworkCore;
 
 using Protocols.Model;
@@ -20,11 +22,14 @@ public class KomunalkaContext : DbContext
     public DbSet<Protocol> Protocols { get; set; }
     public DbSet<Item> Items { get; set; }
 
+    public DbSet<Point> Points { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("komunalka");
 
         modelBuilder.ApplyConfiguration(new ProtocolConfiguration());
         modelBuilder.ApplyConfiguration(new AccidentConfiguration());
+        modelBuilder.ApplyConfiguration(new PointConfiguration());
     }
 }
