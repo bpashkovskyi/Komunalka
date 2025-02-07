@@ -173,3 +173,19 @@ body.no-scroll {
 #total {
     padding: 10px;
 }
+
+table {
+    border-collapse: collapse; /* Ensures borders don't double up */
+    font-size: 12px;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black; /* Adds a border to table cells */
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2; /* Optional: Adds a background color to headers */
+}

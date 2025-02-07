@@ -17,9 +17,10 @@ public class Program
             builder.Configuration.GetConnectionString("KomunalkaDb"),
         sqlServerDbContextOptionsBuilder => sqlServerDbContextOptionsBuilder.MigrationsHistoryTable("__MigrationsHistory", "komunalka")));
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers(options => options.EnableEndpointRouting = false);
         builder.Services.AddHealthChecks().AddDbContextCheck<KomunalkaContext>();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddMvc();
 
         builder.Services.AddCors(options =>
         {
@@ -46,6 +47,7 @@ public class Program
         app.UseStaticFiles();
         app.UseCors("CORS");
         app.MapControllers();
+        app.UseMvc();
 
         app.UseHealthChecks(
             "/healthchecks",

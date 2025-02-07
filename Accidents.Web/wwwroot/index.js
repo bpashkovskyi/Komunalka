@@ -37,7 +37,7 @@ async function deleteMarkers() {
         markers[i].setMap(null);
     }
     markers = [];
-    clusterer.clearMarkers();
+    ////clusterer.clearMarkers();
 }
 async function drawMarkers() {
     var marker, i;
@@ -95,7 +95,7 @@ async function drawMarkers() {
         markers[i] = marker;
     }
 
-    clusterer = new MarkerClusterer({ markers, map });
+    ////clusterer = new MarkerClusterer({ markers, map });
 
 
     $("#total").text('Кількість ДТП: ' + accidents.length);
