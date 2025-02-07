@@ -46,10 +46,11 @@ public class HomeController : Controller
     [HttpGet("report")]
     [ProducesResponseType(typeof(AccidentFilterViewModel), StatusCodes.Status200OK)]
 
-    public async Task<IActionResult> Report(int dist = 50, int year = 2024, int count = 3)
+    public async Task<IActionResult> Report(int dist = 50, int year = 2024, int yearTo = 2024, int count = 3, bool city = false)
     {
         var accidents = await _komunalkaContext.Accidents
-            .Where(a => a.Timestamp.Year >= year)
+            .Where(a => !city || a.Address.City == "Івано-франківськ")
+            .Where(a => a.Timestamp.Year >= year && a.Timestamp.Year <= yearTo)
             .ToListAsync();
 
         var clusters = Clusterization.Clusterize(accidents, dist, count);

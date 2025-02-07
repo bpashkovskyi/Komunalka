@@ -24,6 +24,7 @@
                     <th style="width:100px">Вулиця</th>
                     <th style="width:100px">Додаткова привязка</th>
                     <th style="width:100px">Тип</th>
+                    <th style="width:100px">Чи є МК ДТП (згідно УПП)</th>
                     </thead>
                     @for (var index2 = 1; index2 <= cluster.Accidents.Count; index2++)
                     {
@@ -35,6 +36,7 @@
                             <td>@accident.Address.Street</td>
                             <td>@accident.Address.AdditionalAddress</td>
                             <td>@accident.Type</td>
+                            <td>@accident.Environment.IsPlaceOfAccidentConcentration.ToString()</td>
                         </tr>
                     }
                 </table>
