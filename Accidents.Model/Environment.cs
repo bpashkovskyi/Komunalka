@@ -32,14 +32,14 @@ public class Environment
             return;
         }
 
-        var key = rawData.Substring(0, indexOfSemiColon);
+        var key = rawData.Substring(0, indexOfSemiColon).ToUpper();
 
         var valueStartIndex = rawData[indexOfSemiColon + 1] != ' ' ? indexOfSemiColon + 1 : indexOfSemiColon + 2;
         var value = rawData.Substring(valueStartIndex, rawData.Length - valueStartIndex).ToSentenceCase();
 
         switch (key)
         {
-            case "Тип покриття":
+            case "ТИП ПОКРИТТЯ":
                 SurfaceType = value;
                 break;
             case "СТАН ПОКРИТТЯ":
@@ -58,7 +58,10 @@ public class Environment
                 Weather = value;
                 break;
             case "ТЕХ.ЗАСОБИ ОРГ. ДОР. РУХУ":
-                TrafficTools.Add(value); ;
+                TrafficTools.Add(value);
+                break;
+            case "ІНЖЕНЕРНО-ТРАНСП. ОБЛАШТ.":
+                TrafficTools.Add(value);
                 break;
             default:
                 NotParsed = true;

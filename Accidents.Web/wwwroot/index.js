@@ -50,12 +50,12 @@ async function drawMarkers() {
 
     for (i = 0; i < accidents.length; i++) {
 
-        var icon = getIcon(accidents[i]);
-
         marker = new google.maps.Marker({
             map,
             position: { lat: accidents[i].lat, lng: accidents[i].lng },
-            icon: icon,
+            icon: accidents[i].markerIcon,
+            //draggable: true,
+            id: accidents[i].id
         });
 
         google.maps.event.addListener(
@@ -69,6 +69,29 @@ async function drawMarkers() {
             })(marker, i)
         );
 
+        google.maps.event.addListener(
+            marker,
+            "dragend",
+            (function (marker) {
+                return function (event) {
+                    const data = {
+                        id: marker.id,
+                        lat: event.latLng.lat(),
+                        lng: event.latLng.lng()
+                    };
+
+                    fetch("/setLocation", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data)
+                    });
+
+                };
+            })(marker)
+        );
+
         markers[i] = marker;
     }
 
@@ -76,12 +99,6 @@ async function drawMarkers() {
 
 
     $("#total").text('Кількість ДТП: ' + accidents.length);
-}
-
-function getIcon(accident) {
-    return (
-        "http://maps.google.com/mapfiles/ms/micons/" + accident.markerColor + ".png"
-    );
 }
 
 async function hideLoader() {

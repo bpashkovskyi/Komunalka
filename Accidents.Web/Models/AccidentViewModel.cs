@@ -4,13 +4,57 @@ namespace Accidents.Web.Models;
 
 public class AccidentViewModel
 {
+    private const string Pedestrian =
+        "https://mt.google.com/vt/icon/name=icons/onion/SHARED-mymaps-container-bg_4x.png,icons/onion/SHARED-mymaps-container_4x.png,icons/onion/1731-walking-pedestrian_4x.png";
+
+    private const string Cyclist =
+        "https://mt.google.com/vt/icon/name=icons/onion/SHARED-mymaps-container-bg_4x.png,icons/onion/SHARED-mymaps-container_4x.png,icons/onion/1522-bicycle_4x.png";
+
+    private const string Car =
+        "https://mt.google.com/vt/icon/name=icons/onion/SHARED-mymaps-container-bg_4x.png,icons/onion/SHARED-mymaps-container_4x.png,icons/onion/1538-car_4x.png";
+
+    private const string Red = "highlight=ff000000,E65100,ff000000";
+    private const string Yellow = "highlight=ff000000,F9A825,ff000000";
+    private const string Green = "highlight=ff000000,0F9D58,ff000000";
+
     public AccidentViewModel(Accident accident)
     {
         Id = accident.Id;
-        MarkerColor = GetColor(accident);
+        MarkerIcon = GetIcon(accident);
         Description = this.GetDescription(accident);
         Lat = accident.Coordinates?.Latitude ?? 0;
         Lng = accident.Coordinates?.Longitude ?? 0;
+    }
+
+    private string GetIcon(Accident accident)
+    {
+        var icon = Car;
+
+        if (accident.CyclistInvolved)
+        {
+            icon = Cyclist;
+        }
+
+        if (accident.PedestrianInvolved)
+        {
+            icon = Pedestrian;
+        }
+
+        if (accident.Dead > 0)
+        {
+            icon = $"{icon}&{Red}";
+        }
+        else if (accident.MajorInjuries > 0)
+        {
+            icon = $"{icon}&{Yellow}";
+        }
+        else
+        {
+            icon = $"{icon}&{Green}";
+
+        }
+
+        return icon;
     }
 
     private string GetDescription(Accident accident)
@@ -33,29 +77,9 @@ public class AccidentViewModel
         return description;
     }
 
-    private static string GetColor(Accident accident)
-    {
-        var color = "green";
-
-        if (accident.Dead > 0)
-        {
-            color = "red";
-        }
-        else if (accident.MajorInjuries > 0)
-        {
-            color = "yellow";
-        }
-
-        if (accident.CyclistInvolved || accident.PedestrianInvolved)
-        {
-            color += "-dot";
-        }
-
-        return color;
-    }
-
     public Guid Id { get; set; }
-    public string MarkerColor { get; set; }
+    public string MarkerIcon { get; set; }
+
 
     public string Description { get; set; }
 

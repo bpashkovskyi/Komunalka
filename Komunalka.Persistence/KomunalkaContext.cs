@@ -10,7 +10,7 @@ using Protocols.Model;
 
 namespace Komunalka.Persistence;
 
-public class KomunalkaContext : DbContext
+public sealed class KomunalkaContext : DbContext
 {
     public KomunalkaContext(DbContextOptions<KomunalkaContext> options) : base(options)
     {

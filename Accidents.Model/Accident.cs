@@ -23,7 +23,7 @@ public class Accident
         if (reasonText == null)
         {
             return;
-        };
+        }
 
         if (!reasonText.Contains(','))
         {

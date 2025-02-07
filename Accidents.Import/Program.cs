@@ -16,9 +16,9 @@ namespace Accidents.Import;
 
 internal class Program
 {
-    private static HttpClient _httpClient = new();
+    private static readonly HttpClient HttpClient = new();
 
-    static async Task Main(string[] args)
+    static async Task Main()
     {
         var connectionString = "Server=tcp:bpashkovskyi-malkos.database.windows.net,1433;Initial Catalog=bpashkovskyi-malkos-db;Persist Security Info=False;User ID=bpashkovskyi;Password=Q!W@E#r4t5y6;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
@@ -40,10 +40,10 @@ internal class Program
 
     private static void ShiftCoordinates(List<Accident> accidents)
     {
-        var accidentsAtSamePoint = accidents.GroupBy(a => new
+        var accidentsAtSamePoint = accidents.GroupBy(accident => new
         {
-            a.Coordinates.OriginalLatitude,
-            a.Coordinates.OriginalLongitude
+            accident.Coordinates.OriginalLatitude,
+            accident.Coordinates.OriginalLongitude
         });
 
         foreach (var accidentGroup in accidentsAtSamePoint)
@@ -66,7 +66,7 @@ internal class Program
         {
             var url = $"https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD7PIVcFN5iX7CdxlyrU_NAisSI2RY9Lio&address={accident.Address.City}, {accident.Address.Street}, {accident.Address.AdditionalAddress}";
 
-            using HttpResponseMessage response = await _httpClient.GetAsync(url);
+            using HttpResponseMessage response = await HttpClient.GetAsync(url);
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
 

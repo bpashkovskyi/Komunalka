@@ -1,3 +1,4 @@
+using Accidents.Model;
 using Accidents.Web.Models;
 
 using Komunalka.Persistence;
@@ -45,7 +46,7 @@ public class HomeController : Controller
 
     ////public async Task<IActionResult> SetMarker(SetAccidentLocationViewModel setAccidentLocationViewModel)
     ////{
-    ////    var accident = await _accidentsContext.Accidents.FindAsync(setAccidentLocationViewModel.Id);
+    ////    var accident = await this._komunalkaContext.Accidents.FindAsync(setAccidentLocationViewModel.Id);
 
     ////    if (accident.Coordinates == null)
     ////    {
@@ -55,7 +56,7 @@ public class HomeController : Controller
     ////    accident.Coordinates.ManuallyCorrectedLatitude = setAccidentLocationViewModel.Lat;
     ////    accident.Coordinates.ManuallyCorrectedLongitude = setAccidentLocationViewModel.Lng;
 
-    ////    await _accidentsContext.SaveChangesAsync();
+    ////    await _komunalkaContext.SaveChangesAsync();
 
     ////    return Ok();
     ////}
