@@ -51,7 +51,7 @@ public class FileParser
 
         text = RemoveFooters(text);
 
-        var itemRegex = new Regex("(\\d+)\\.*\\s*СЛУХАЛ?И?\\:?\\s*(.*?)\\s*\\d*\\.?ВИРІШИЛ?И?\\:?\\s*(.*?)\\s*\\.?\\s*\\d*\\.*\\s*?[^\\d](?=\\d+\\.*\\s*СЛУХАЛ|Голов|Заступ)");
+        var itemRegex = new Regex("(\\d*)\\.*\\s*СЛУХАЛ?И?\\:?\\s*(.*?)\\s*\\d*\\.?ВИРІШИЛ?И?\\:?\\s*(.*?)\\s*\\.?\\s*\\d*\\.*\\s*?[^\\d](?=\\d+\\.*\\s*СЛУХАЛ|Голов|Заступ)");
 
 
         var itemMatches = itemRegex.Matches(text);
@@ -62,7 +62,7 @@ public class FileParser
         {
             var item = new Item
             {
-                Number = int.Parse(itemMatches[i].Groups[1].Value),
+                Number = itemMatches[i].Groups[1].Value == "" ? null : int.Parse(itemMatches[i].Groups[1].Value),
                 OrderNumber = (i + 1) * 10,
                 Heard = itemMatches[i].Groups[2].Value,
                 Decided = itemMatches[i].Groups[3].Value
