@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Globalization;
+using Protocols.Model;
 
 namespace Protocols.Web.Models;
 
@@ -20,4 +22,14 @@ public class ItemSearchViewModel
 
     [DisplayName("Вирішили")]
     public string Decided { get; set; }
+
+    public ItemSearchViewModel(Item item)
+    {
+        ProtocolId = item.Protocol.Id;
+        ProtocolNumber = item.Protocol.Number;
+        ProtocolDate = item.Protocol.Date.ToString("dd.MM.yyyy", CultureInfo.CreateSpecificCulture("uk-UA"));
+        Number = item.Number;
+        Heard = item.Heard;
+        Decided = item.Decided;
+    }
 }

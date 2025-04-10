@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Protocols.Model;
+
+using System.ComponentModel;
 
 namespace Protocols.Web.Models;
 
@@ -12,4 +14,11 @@ public class ItemViewModel
 
     [DisplayName("Вирішили")]
     public string Decided { get; set; }
+
+    public ItemViewModel(Item item)
+    {
+        Number = item.Number;
+        Heard = item.Heard;
+        Decided = item.Decided;
+    }
 }

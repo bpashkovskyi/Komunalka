@@ -13,19 +13,11 @@ public class ProtocolDetailsViewModel
 
     public List<ItemViewModel> Items { get; set; }
 
-    public static ProtocolDetailsViewModel FromProtocol(Protocol protocol)
+    public ProtocolDetailsViewModel (Protocol protocol)
     {
-        return new ProtocolDetailsViewModel
-        {
-            Id = protocol.Id,
-            Date = protocol.Date.ToString("dd.MM.yyyy", CultureInfo.CreateSpecificCulture("uk-UA")),
-            Number = protocol.Number,
-            Items = protocol.Items.OrderBy(item => item.OrderNumber).Select(item => new ItemViewModel
-            {
-                Number = item.Number,
-                Heard = item.Heard,
-                Decided = item.Decided,
-            }).ToList()
-        };
+        Id = protocol.Id;
+        Date = protocol.Date.ToString("dd.MM.yyyy", CultureInfo.CreateSpecificCulture("uk-UA"));
+        Number = protocol.Number;
+        Items = protocol.Items.OrderBy(item => item.OrderNumber).Select(item => new ItemViewModel(item)).ToList();
     }
 }

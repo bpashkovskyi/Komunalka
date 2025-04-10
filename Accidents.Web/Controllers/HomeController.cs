@@ -1,7 +1,4 @@
-﻿using System.Text;
-
-using Accidents.Model;
-using Accidents.Web.Models;
+﻿using Accidents.Web.Models;
 
 using Komunalka.Persistence;
 
