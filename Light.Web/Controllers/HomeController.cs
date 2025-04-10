@@ -22,7 +22,7 @@ public class HomeController : Controller
     [ProducesResponseType(typeof(List<PointViewModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAccidents(PointsSearchViewModel pointsSearchViewModel)
     {
-        var points = await _komunalkaContext.Points.Where(p => p.Coordinates.OriginalLatitude != null).ToListAsync();
+        var points = await _komunalkaContext.Points.Where(p => p.Coordinates.OriginalLatitude != null).ToListAsync().ConfigureAwait(false);
         points = pointsSearchViewModel.Filter(points);
 
         var pointViewModels = points.Select(accident => new PointViewModel(accident));
@@ -35,7 +35,7 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var points = await _komunalkaContext.Points.Where(p => p.Coordinates.OriginalLatitude != null).ToListAsync();
+        var points = await _komunalkaContext.Points.Where(p => p.Coordinates.OriginalLatitude != null).ToListAsync().ConfigureAwait(false);
 
         return Ok(new PointFilterViewModel(points));
     }

@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accidents.Model", "Accident
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accidents.Web", "Accidents.Web\Accidents.Web.csproj", "{D3964C96-A7D1-499E-9ABA-45C7435136AA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Protocols.Import", "Protocols.Import\Protocols.Import.csproj", "{E6D6A929-7E62-419B-8D43-FE02B9F3FB16}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Protocols.Model", "Protocols.Model\Protocols.Model.csproj", "{2B98EF94-7D57-4125-82AC-15C7403478F8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Protocols.Web", "Protocols.Web\Protocols.Web.csproj", "{8C4619C3-745F-442D-9BC2-0BD4F1B504DA}"
@@ -47,10 +45,6 @@ Global
 		{D3964C96-A7D1-499E-9ABA-45C7435136AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3964C96-A7D1-499E-9ABA-45C7435136AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3964C96-A7D1-499E-9ABA-45C7435136AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E6D6A929-7E62-419B-8D43-FE02B9F3FB16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E6D6A929-7E62-419B-8D43-FE02B9F3FB16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E6D6A929-7E62-419B-8D43-FE02B9F3FB16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E6D6A929-7E62-419B-8D43-FE02B9F3FB16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2B98EF94-7D57-4125-82AC-15C7403478F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B98EF94-7D57-4125-82AC-15C7403478F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B98EF94-7D57-4125-82AC-15C7403478F8}.Release|Any CPU.ActiveCfg = Release|Any CPU

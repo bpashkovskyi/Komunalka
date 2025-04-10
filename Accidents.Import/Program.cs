@@ -28,14 +28,14 @@ internal class Program
         var accidents = ParseAccidents();
         foreach (var accident in accidents)
         {
-            await GeoCode(accident);
+            await GeoCode(accident).ConfigureAwait(false);
         }
 
         ShiftCoordinates(accidents);
 
         var accidentsContext = new KomunalkaContext(dbContextOptionsBuilder.Options);
         accidentsContext.Accidents.AddRange(accidents);
-        await accidentsContext.SaveChangesAsync();
+        await accidentsContext.SaveChangesAsync().ConfigureAwait(false);
     }
 
     private static void ShiftCoordinates(List<Accident> accidents)
@@ -66,9 +66,9 @@ internal class Program
         {
             var url = $"https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD7PIVcFN5iX7CdxlyrU_NAisSI2RY9Lio&address={accident.Address.City}, {accident.Address.Street}, {accident.Address.AdditionalAddress}";
 
-            using HttpResponseMessage response = await HttpClient.GetAsync(url);
+            using HttpResponseMessage response = await HttpClient.GetAsync(url).ConfigureAwait(false);
 
-            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             var jObject = JObject.Parse(jsonResponse);
 

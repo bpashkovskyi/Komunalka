@@ -1,4 +1,6 @@
-﻿namespace Protocols.Model;
+﻿using System.Globalization;
+
+namespace Protocols.Model;
 
 public class Protocol
 {
@@ -9,4 +11,6 @@ public class Protocol
     public DateTime Date { get; set; }
 
     public List<Item> Items = new();
+
+    public string FileName => $"Протокол №{this.Number} від {this.Date.ToString("dd.MM.yyyy", CultureInfo.CreateSpecificCulture("uk-UA"))} року.pdf";
 }

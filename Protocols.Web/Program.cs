@@ -21,6 +21,8 @@ public class Program
         builder.Services.AddControllersWithViews();
         builder.Services.AddHealthChecks().AddDbContextCheck<KomunalkaContext>();
 
+        builder.Services.AddScoped<IProtocolParser, ProtocolParser>();
+
         var app = builder.Build();
 
         app.UseHttpsRedirection();

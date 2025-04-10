@@ -25,7 +25,7 @@ public class HomeController : Controller
     [ProducesResponseType(typeof(List<AccidentViewModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAccidents(AccidentSearchViewModel accidentSearchViewModel)
     {
-        var accidents = await _komunalkaContext.Accidents.ToListAsync();
+        var accidents = await _komunalkaContext.Accidents.ToListAsync().ConfigureAwait(false);
         accidents = accidentSearchViewModel.Filter(accidents);
 
         var accidentViewModels = accidents.Select(accident => new AccidentViewModel(accident));
@@ -38,7 +38,7 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var accidents = await _komunalkaContext.Accidents.ToListAsync();
+        var accidents = await _komunalkaContext.Accidents.ToListAsync().ConfigureAwait(false);
 
         return Ok(new AccidentFilterViewModel(accidents));
     }
@@ -51,7 +51,7 @@ public class HomeController : Controller
         var accidents = await _komunalkaContext.Accidents
             .Where(a => !city || a.Address.City == "Івано-франківськ")
             .Where(a => a.Timestamp.Year >= year && a.Timestamp.Year <= yearTo)
-            .ToListAsync();
+            .ToListAsync().ConfigureAwait(false);
 
         var clusters = Clusterization.Clusterize(accidents, dist, count);
 

@@ -34,7 +34,7 @@ internal class Program
 
             foreach (var point in toLocate)
             {
-                await GeoCode(point);
+                await GeoCode(point).ConfigureAwait(false);
                 Console.WriteLine(j);
 
                 j++;
@@ -57,7 +57,7 @@ internal class Program
             ////    accidentsContext.Points.AddRange(points);
             ////}
 
-            await accidentsContext.SaveChangesAsync();
+            await accidentsContext.SaveChangesAsync().ConfigureAwait(false);
         }
         
     }
@@ -108,9 +108,9 @@ internal class Program
         {
             var url = $"https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD7PIVcFN5iX7CdxlyrU_NAisSI2RY9Lio&address={point.Address.City}, {point.Address.Street}, {point.Address.AdditionalAddress}";
 
-            using HttpResponseMessage response = await _httpClient.GetAsync(url);
+            using HttpResponseMessage response = await _httpClient.GetAsync(url).ConfigureAwait(false);
 
-            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var jsonResponse = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             var jObject = JObject.Parse(jsonResponse);
 

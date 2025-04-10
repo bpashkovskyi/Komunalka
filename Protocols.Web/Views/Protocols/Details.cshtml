@@ -6,7 +6,7 @@
 
 <div>
     <h4>Протокол №@Html.DisplayFor(model => model.Number) від @Html.DisplayFor(model => model.Date) року</h4>
-    @Html.ActionLink("Завантажити вихідний файл протоколу", "Download", "Home", new { id = Model.Id })
+    @Html.ActionLink("Завантажити вихідний файл протоколу", "Download", "Protocols", new { id = Model.Id })
     <hr />
     <dl class="row">
         <table class="table">

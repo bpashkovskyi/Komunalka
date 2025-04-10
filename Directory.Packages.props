@@ -12,10 +12,11 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.*" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.*" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.*" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.4" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="9.*" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.*" />
     <PackageVersion Include="Newtonsoft.Json" Version="*-*" />
-    <PackageVersion Include="PdfPig" Version="*-*" />
+    <PackageVersion Include="PdfPig" Version="0.1.11-alpha-20250407-24902" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="*-*" />
   </ItemGroup>
 </Project>
