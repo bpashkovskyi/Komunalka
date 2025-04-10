@@ -88,33 +88,42 @@ public class ProtocolsController(KomunalkaContext komunalkaContext, IProtocolPar
     [Route("import")]
     public async Task<IActionResult> Import(ProtocolImportViewModel protocolImportViewModel)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return View(protocolImportViewModel);
-        }
-
-        if (protocolImportViewModel.File != null)
-        {
-            var protocol = protocolParser.Parse(protocolImportViewModel.File.OpenReadStream(), out List<string> validationErrors);
-
-            protocol.Date = DateTime.ParseExact(protocolImportViewModel.Date, "dd.MM.yyyy", null);
-            protocol.Number = protocolImportViewModel.Number;
-
-            if (validationErrors.Count > 0)
+            if (!ModelState.IsValid)
             {
-                foreach (var validationError in validationErrors)
-                {
-                    ModelState[nameof(ProtocolImportViewModel.File)]?.Errors.Add(validationError);
-                }
-
                 return View(protocolImportViewModel);
             }
 
-            await SaveProtocolToFileSystem(protocolImportViewModel.File, protocol);
-            await SaveProtocolToDatabase(protocol);
-        }
+            if (protocolImportViewModel.File != null)
+            {
+                var protocol = protocolParser.Parse(protocolImportViewModel.File.OpenReadStream(),
+                    out List<string> validationErrors);
 
-        return RedirectToAction("Index");
+                protocol.Date = DateTime.ParseExact(protocolImportViewModel.Date, "dd.MM.yyyy", null);
+                protocol.Number = protocolImportViewModel.Number;
+
+                if (validationErrors.Count > 0)
+                {
+                    foreach (var validationError in validationErrors)
+                    {
+                        ModelState[nameof(ProtocolImportViewModel.File)]?.Errors.Add(validationError);
+                    }
+
+                    return View(protocolImportViewModel);
+                }
+
+                await SaveProtocolToFileSystem(protocolImportViewModel.File, protocol);
+                await SaveProtocolToDatabase(protocol);
+            }
+
+            return RedirectToAction("Index");
+        }
+        catch (Exception e)
+        {
+            return Ok(e.Message);
+        }
+        
     }
 
     private async Task SaveProtocolToDatabase(Protocol protocol)
