@@ -17,6 +17,10 @@
                 @Html.DisplayNameFor(model => model.ItemsCount)
             </th>
             <th></th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th></th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -33,11 +37,12 @@
                     @Html.DisplayFor(modelItem => item.ItemsCount)
                 </td>
                 <td>
-                    @Html.ActionLink("Перейти до питань", "Details", new
-                        {
-                            id = item.Id
-                        })
+                    @Html.ActionLink("Перейти до питань", "Details", new { id = item.Id })
                 </td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <td>@Html.ActionLink("Редагувати", "Edit", new { id = item.Id })</td>
+                }
             </tr>
         }
     </tbody>

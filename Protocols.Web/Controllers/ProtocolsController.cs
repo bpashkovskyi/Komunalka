@@ -1,7 +1,9 @@
-using Komunalka.Persistence;
+﻿using Komunalka.Persistence;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
 using Protocols.Model;
 using Protocols.Web.Models;
 #pragma warning disable CA2007
@@ -76,6 +78,7 @@ public class ProtocolsController(KomunalkaContext komunalkaContext, IProtocolPar
         return View(itemSearchViewModels);
     }
 
+    [Authorize]
     [HttpGet]
     [Route("import")]
 
@@ -84,6 +87,7 @@ public class ProtocolsController(KomunalkaContext komunalkaContext, IProtocolPar
         return View(new ProtocolImportViewModel());
     }
 
+    [Authorize]
     [HttpPost]
     [Route("import")]
     public async Task<IActionResult> Import(ProtocolImportViewModel protocolImportViewModel)
@@ -124,6 +128,73 @@ public class ProtocolsController(KomunalkaContext komunalkaContext, IProtocolPar
             return Ok(e.Message);
         }
         
+    }
+
+    [Authorize]
+    [Route("edit")]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var protocol = await komunalkaContext.Protocols
+            .Include(p => p.Items)
+            .FirstOrDefaultAsync(p => p.Id == id);
+
+        if (protocol == null)
+            return NotFound();
+
+        var model = new ProtocolEditViewModel
+        {
+            Id = protocol.Id,
+            Number = protocol.Number,
+            Date = protocol.Date.ToString("dd.MM.yyyy"),
+            Items = protocol.Items
+                .OrderBy(item => item.OrderNumber)
+                .Select(item => new ItemEditViewModel
+                {
+                    Id = item.Id,
+                    OrderNumber = item.OrderNumber,
+                    Number = item.Number,
+                    Heard = item.Heard,
+                    Decided = item.Decided
+                }).ToList()
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    [Route("edit")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(ProtocolEditViewModel protocolEditViewModel)
+    {
+        var protocol = await komunalkaContext.Protocols
+            .Include(p => p.Items)
+            .FirstOrDefaultAsync(p => p.Id == protocolEditViewModel.Id);
+
+        if (protocol == null)
+        {
+            return NotFound();
+        }
+
+        protocol.Number = protocolEditViewModel.Number;
+        protocol.Date = DateTime.ParseExact(protocolEditViewModel.Date, "dd.MM.yyyy", null); ;
+
+        // Очистимо всі старі пункти
+        komunalkaContext.Items.RemoveRange(protocol.Items);
+
+        // Додаємо нові
+        protocol.Items = protocolEditViewModel.Items.Select((item, index) => new Item
+        {
+            Id = item.Id ?? 0,
+            OrderNumber = index + 1,
+            Number = item.Number,
+            Heard = item.Heard,
+            Decided = item.Decided ?? "foo",
+            ProtocolId = protocol.Id
+        }).ToList();
+
+        await komunalkaContext.SaveChangesAsync();
+
+        return RedirectToAction("Details", new { id = protocolEditViewModel.Id });
     }
 
     private async Task SaveProtocolToDatabase(Protocol protocol)

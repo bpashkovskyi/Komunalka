@@ -17,6 +17,14 @@ public class Program
             builder.Configuration.GetConnectionString("KomunalkaDb"),
             sqlServerDbContextOptionsBuilder => sqlServerDbContextOptionsBuilder.MigrationsHistoryTable("__MigrationsHistory", "komunalka")));
 
+        builder.Services.AddAuthentication("MyCookieAuth")
+            .AddCookie("MyCookieAuth", options =>
+            {
+                options.LoginPath = "/login";
+            });
+
+        builder.Services.AddAuthorization();
+
         // Add services to the container.
         builder.Services.AddControllersWithViews();
         builder.Services.AddHealthChecks().AddDbContextCheck<KomunalkaContext>();
@@ -28,7 +36,10 @@ public class Program
         app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseRouting();
+
+        app.UseAuthentication();
         app.UseAuthorization();
+
         app.MapControllers();
 
         app.UseHealthChecks(

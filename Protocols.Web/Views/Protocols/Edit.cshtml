@@ -1,0 +1,107 @@
+﻿@model Protocols.Web.Models.ProtocolEditViewModel
+
+@{
+    ViewData["Title"] = "Редагування протоколу";
+}
+
+<h4>Редагування протоколу</h4>
+
+<form asp-action="Edit" method="post">
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-group">
+        <label>Номер</label>
+        @Html.TextBoxFor(m => m.Number, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label>Дата</label>
+        @Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
+    </div>
+
+    <hr />
+    <h5>Пункти</h5>
+    <table class="table" id="items-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Номер</th>
+                <th>Слухали</th>
+                <th>Вирішили</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="sortable-items">
+            @for (int i = 0; i < Model.Items.Count; i++)
+            {
+                <tr class="item-row">
+                    @Html.HiddenFor(m => m.Items[i].Id)
+                    <td class="order-cell">@(i + 1)</td>
+                    <td>@Html.TextBoxFor(m => m.Items[i].Number, new { @class = "form-control" })</td>
+                    <td>@Html.TextAreaFor(m => m.Items[i].Heard, new { @rows = 5, @cols = 50, @class = "form-control" })</td>
+                    <td>@Html.TextAreaFor(m => m.Items[i].Decided, new { @rows = 5, @cols = 50, @class = "form-control" })</td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm remove-row">Видалити</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="button" id="add-item" class="btn btn-secondary">Додати пункт</button>
+    <br /><br />
+    <button type="submit" class="btn btn-primary">Зберегти</button>
+    <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+</form>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <script>
+                $(function () {
+                    let itemIndex = @Model.Items.Count;
+
+                    $('#sortable-items').sortable({
+                        handle: '.order-cell',
+                        update: function () {
+                            updateOrderNumbers();
+                        }
+                    });
+
+                    $('#add-item').click(function () {
+                        const newRow = `
+        <tr class="item-row">
+            <td class="order-cell">${itemIndex + 1}</td>
+            <td><input type="text" name="Items[${itemIndex}].Number" class="form-control"></td>
+            <td><textarea name="Items[${itemIndex}].Heard" class="form-control" cols="50" rows="5"></textarea></td>
+            <td><textarea name="Items[${itemIndex}].Decided" class="form-control" cols="50" rows="5"></textarea></td>
+            <td><button type="button" class="btn btn-danger btn-sm remove-row">Видалити</button></td>
+        </tr>`;
+                        $('#sortable-items').append(newRow);
+                        itemIndex++;
+                    });
+
+                    $('#items-table').on('click', '.remove-row', function () {
+                        $(this).closest('tr').remove();
+                        updateOrderNumbers();
+                    });
+
+                    function updateOrderNumbers() {
+                        $('#sortable-items tr').each(function (index) {
+                            $(this).find('.order-cell').text(index + 1);
+                            $(this).find('input').each(function () {
+                                const name = $(this).attr('name');
+                                const newName = name.replace(/\[\d+\]/, `[${index}]`);
+                                $(this).attr('name', newName);
+                            });
+                            $(this).find('textarea').each(function () {
+                                const name = $(this).attr('name');
+                                const newName = name.replace(/\[\d+\]/, `[${index}]`);
+                                $(this).attr('name', newName);
+                            });
+                        });
+                        itemIndex = $('#sortable-items tr').length;
+                    }
+                });
+    </script>
+}

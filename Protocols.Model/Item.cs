@@ -13,4 +13,6 @@ public class Item
     public string Decided { get; set; }
 
     public Protocol Protocol { get; set; }
+
+    public int ProtocolId { get; set; }
 }

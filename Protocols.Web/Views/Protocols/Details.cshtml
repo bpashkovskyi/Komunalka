@@ -7,6 +7,10 @@
 <div>
     <h4>Протокол №@Html.DisplayFor(model => model.Number) від @Html.DisplayFor(model => model.Date) року</h4>
     @Html.ActionLink("Завантажити вихідний файл протоколу", "Download", "Protocols", new { id = Model.Id })
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Html.ActionLink("Редагувати", "Edit", "Protocols", new { id = Model.Id })
+    }
     <hr />
     <dl class="row">
         <table class="table">
