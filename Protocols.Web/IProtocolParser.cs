@@ -52,10 +52,10 @@ namespace Protocols.Web
             var heardRegex = new Regex("СЛУХАЛИ\\:", RegexOptions.IgnoreCase);
             var decidedRegex = new Regex("ВИРІШИЛИ\\:", RegexOptions.IgnoreCase);
 
-            if (heardRegex.Matches(text).Count != decidedRegex.Matches(text).Count)
-            {
-                validationErrors.Add($"У протоколі кількість вживань слова 'СЛУХАЛИ:' - {heardRegex.Matches(text).Count}, слова 'ВИРІШИЛИ:' - {decidedRegex.Matches(text).Count}");
-            }
+            ////if (heardRegex.Matches(text).Count != decidedRegex.Matches(text).Count)
+            ////{
+            ////    validationErrors.Add($"У протоколі кількість вживань слова 'СЛУХАЛИ:' - {heardRegex.Matches(text).Count}, слова 'ВИРІШИЛИ:' - {decidedRegex.Matches(text).Count}");
+            ////}
 
             var itemRegex = new Regex("(\\d*)\\.*\\s*СЛУХАЛИ\\:?\\s*(.*?)\\s*\\d*\\.?ВИРІШИЛИ\\:?\\s*(.*?)\\s*\\.?\\s*\\d*\\.*\\s*?[^\\d](?=\\d+\\.*\\s*СЛУХАЛ|Голов|Заступ)", RegexOptions.IgnoreCase);
 

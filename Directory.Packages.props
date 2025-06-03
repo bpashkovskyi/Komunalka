@@ -8,11 +8,12 @@
     <PackageVersion Include="AspNetCore.HealthChecks.UI.Client" Version="*-*" />
     <PackageVersion Include="CsvHelper" Version="*-*" />
     <PackageVersion Include="ExcelDataReader" Version="*-*" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+    <PackageVersion Include="ExcelDataReader.DataSet" Version="*-*" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="9.*" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.*" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.*" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="9.*" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.*" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="9.*" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.*" />
     <PackageVersion Include="Newtonsoft.Json" Version="*-*" />

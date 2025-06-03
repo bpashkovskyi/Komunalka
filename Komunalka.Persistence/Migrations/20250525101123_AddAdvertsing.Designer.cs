@@ -4,6 +4,7 @@ using Komunalka.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Komunalka.Persistence.Migrations
 {
     [DbContext(typeof(KomunalkaContext))]
-    partial class KomunalkaContextModelSnapshot : ModelSnapshot
+    [Migration("20250525101123_AddAdvertsing")]
+    partial class AddAdvertsing
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,12 +86,6 @@ namespace Komunalka.Persistence.Migrations
 
                     b.Property<DateTime?>("Issued")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("NormalizedDistributorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedType")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("PlanesValue")
                         .HasColumnType("float");

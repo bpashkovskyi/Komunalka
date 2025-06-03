@@ -1,0 +1,47 @@
+﻿ @* @model System.Collections.Generic.List<Accidents.Web.Cluster>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Місця концентрацій ДТП:</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+</head>
+<body>
+    <div id="table-container">
+        <table>
+            @foreach (var cluster in Model)
+            {
+                <table>
+                    <thead>
+                    <th style="width:20px">№</th>
+                    <th style="width:60px">Дата</th>
+                    <th style="width:100px">Місто</th>
+                    <th style="width:100px">Вулиця</th>
+                    <th style="width:100px">Додаткова привязка</th>
+                    <th style="width:100px">Тип</th>
+                    <th style="width:100px">Чи є МК ДТП (згідно УПП)</th>
+                    </thead>
+                    @for (var index2 = 1; index2 <= cluster.Accidents.Count; index2++)
+                    {
+                        var accident = cluster.Accidents[index2 - 1];
+                        <tr>
+                            <td>@index2</td>
+                            <td>@accident.Timestamp.ToShortDateString() @accident.Timestamp.ToShortTimeString()</td>
+                            <td>@accident.Address.City</td>
+                            <td>@accident.Address.Street</td>
+                            <td>@accident.Address.AdditionalAddress</td>
+                            <td>@accident.Type</td>
+                            <td>@accident.Environment.IsPlaceOfAccidentConcentration.ToString()</td>
+                        </tr>
+                    }
+                </table>
+            }
+        </table>
+    </div>
+</body>
+</html> *@ 

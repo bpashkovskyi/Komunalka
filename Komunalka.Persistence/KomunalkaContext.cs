@@ -1,5 +1,5 @@
 ﻿using Accidents.Model;
-
+using Advertising.Model;
 using Komunalka.Persistence.Configurations;
 
 using Light.Model;
@@ -21,6 +21,7 @@ public sealed class KomunalkaContext : DbContext
 
     public DbSet<Protocol> Protocols { get; set; }
     public DbSet<Item> Items { get; set; }
+    public DbSet<Board> Boards { get; set; }
 
     public DbSet<Point> Points { get; set; }
 
@@ -30,6 +31,7 @@ public sealed class KomunalkaContext : DbContext
 
         modelBuilder.ApplyConfiguration(new ProtocolConfiguration());
         modelBuilder.ApplyConfiguration(new AccidentConfiguration());
+        modelBuilder.ApplyConfiguration(new BoardConfiguration());
         modelBuilder.ApplyConfiguration(new PointConfiguration());
     }
 }
